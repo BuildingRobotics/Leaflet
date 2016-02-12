@@ -1,5 +1,5 @@
 /*
- Leaflet 1.0.0-beta.2 (55fe462), a JS library for interactive maps. http://leafletjs.com
+ Leaflet 1.0.0-beta.2 (954e83d), a JS library for interactive maps. http://leafletjs.com
  (c) 2010-2015 Vladimir Agafonkin, (c) 2010-2011 CloudMade
 */
 (function (window, document, undefined) {
@@ -3348,12 +3348,14 @@ L.GridLayer = L.Layer.extend({
 			this._pruneTiles();
 		}
 
-		L.DomUtil.addClass(tile.el, 'leaflet-tile-loaded');
+		if (!err) {
+			L.DomUtil.addClass(tile.el, 'leaflet-tile-loaded');
 
-		this.fire('tileload', {
-			tile: tile.el,
-			coords: coords
-		});
+			this.fire('tileload', {
+				tile: tile.el,
+				coords: coords
+			});
+		}
 
 		if (this._noTilesToLoad()) {
 			this._loading = false;
