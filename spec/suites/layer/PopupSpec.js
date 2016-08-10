@@ -6,8 +6,13 @@ describe('Popup', function () {
 		c = document.createElement('div');
 		c.style.width = '400px';
 		c.style.height = '400px';
+		document.body.appendChild(c);
 		map = new L.Map(c);
 		map.setView(new L.LatLng(55.8, 37.6), 6);
+	});
+
+	afterEach(function () {
+		document.body.removeChild(c);
 	});
 
 	it("closes on map click when map has closePopupOnClick option", function () {
@@ -51,22 +56,18 @@ describe('Popup', function () {
 		map.addLayer(marker);
 
 		marker.bindPopup('Popup1');
-		map.options.closePopupOnClick = true;
+		expect(map.hasLayer(marker._popup)).to.be(false);
 
 		// toggle open popup
-		marker.fire('click', {
-			latlng: new L.LatLng(55.8, 37.6)
-		});
+		happen.click(marker._icon);
 		expect(map.hasLayer(marker._popup)).to.be(true);
 
 		// toggle close popup
-		marker.fire('click', {
-			latlng: new L.LatLng(55.8, 37.6)
-		});
+		happen.click(marker._icon);
 		expect(map.hasLayer(marker._popup)).to.be(false);
 	});
 
-	it("it should use a popup with a fuction as content with a FeatureGroup", function () {
+	it("it should use a popup with a function as content with a FeatureGroup", function () {
 		var marker1 = new L.Marker(new L.LatLng(55.8, 37.6));
 		var marker2 = new L.Marker(new L.LatLng(54.6, 38.2));
 		var group = new L.FeatureGroup([marker1, marker2]).addTo(map);
@@ -228,6 +229,25 @@ describe('Popup', function () {
 		L.Icon.Default.prototype.options.popupAnchor = popupAnchorBefore;
 	});
 
+	it("prevents an underlying map click for Layer", function () {
+		var layer = new L.Polygon([[55.8, 37.6], [55.9, 37.7], [56.0, 37.8]]).addTo(map);
+		layer.bindPopup("layer popup");
+
+		var mapClicked = false;
+		map.on('click', function (e) {
+			mapClicked = true;
+			new L.Popup()
+				.setLatLng(e.latlng)
+				.setContent("map popup")
+				.openOn(map);
+		});
+
+		expect(map.hasLayer(layer._popup)).to.be(false);
+		happen.click(layer._path);
+		expect(mapClicked).to.be(false);
+		expect(map.hasLayer(layer._popup)).to.be(true);
+	});
+
 });
 
 describe("L.Map#openPopup", function () {
@@ -239,6 +259,12 @@ describe("L.Map#openPopup", function () {
 		c.style.height = '400px';
 		map = new L.Map(c);
 		map.setView(new L.LatLng(55.8, 37.6), 6);
+	});
+
+	afterEach(function () {
+		if (document.body.contains(c)) {
+			document.body.removeChild(c);
+		}
 	});
 
 	it("adds the popup layer to the map", function () {
@@ -289,12 +315,16 @@ describe("L.Map#openPopup", function () {
 		map.openPopup(p);
 		expect(map.hasLayer(p)).to.be(true);
 		map.on('drag', spy);
-		happen.drag(coords.left + 100, coords.top + 100, coords.left + 110, coords.top + 110, function () {
-			expect(spy.called).to.be(true);
-			expect(map.hasLayer(p)).to.be(true);
-			document.body.removeChild(c);
-			done();
-		});
+		var hand = new Hand({
+			timing: 'fastframe',
+			onStop: function () {
+				expect(spy.called).to.be(true);
+				expect(map.hasLayer(p)).to.be(true);
+				done();
+			}});
+		var mouse = hand.growFinger('mouse');
+		mouse.moveTo(coords.left + 100, coords.left + 100, 0)
+			.down().moveBy(10, 10, 20).up();
 	});
 
 });

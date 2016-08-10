@@ -8,6 +8,151 @@ Leaflet Changelog
 An in-progress version being developed on the `master` branch.
 
 
+## 1.0-rc3 (August 5, 2016)
+
+### API changes
+- `L.Tooltip` `offset` option now defaults to `[0, 0]` (by [@yohanboniface](https://github.com/yohanboniface)) [#4773](https://github.com/Leaflet/Leaflet/pull/4773)
+- Event listeners are now always called in the order they have been registered, while until rc2 listeners with a context were all called before listeners without context (even if registered later), and the listeners with context were called in an unpredictable order (by [@yohanboniface](https://github.com/yohanboniface)) [#4769](https://github.com/Leaflet/Leaflet/pull/4769)
+
+### Improvements
+- Added `oldLatLng` in `L.Marker` `drag` event (by [@snkashis](https://github.com/snkashis)) [#4752](https://github.com/Leaflet/Leaflet/pull/4752)
+
+### Bug fixes
+- Fixed regression where event listeners where not always fired in the order of registration (by [@yohanboniface](https://github.com/yohanboniface)) [#4769](https://github.com/Leaflet/Leaflet/pull/4769)
+- Fixed `L.Tooltip` zoom animation (by [@yohanboniface](https://github.com/yohanboniface)) [#4744](https://github.com/Leaflet/Leaflet/pull/4744)
+- Fixed `layer.bindTooltip` crashing when called before adding the layer to the map (by [@yohanboniface](https://github.com/yohanboniface)) [#4779](https://github.com/Leaflet/Leaflet/pull/4779)
+- Fixed regression in `L.Popup` autopaning (by [@yohanboniface](https://github.com/yohanboniface)) [#4768](https://github.com/Leaflet/Leaflet/pull/4768)
+- Fixed non permanent `L.Tooltip` not being closed on touch when touching the map (by [@yohanboniface](https://github.com/yohanboniface)) [#4767](https://github.com/Leaflet/Leaflet/pull/4767)
+- Fixed `popupopen` and `popupclose` not being fired when clicking on path with an open popup (by [@yohanboniface](https://github.com/yohanboniface)) [#4788](https://github.com/Leaflet/Leaflet/pull/4788)
+
+
+## 1.0-rc2 (July 18, 2016)
+
+### API changes
+* Make `L.Handler.enable`/`disable` return `this` (by [@yohanboniface](https://github.com/yohanboniface)) [#4708](https://github.com/Leaflet/Leaflet/pull/4708)
+* Icon `size` option can now be initialised with a number (by [@rheh](https://github.com/rheh)) [#4608](https://github.com/Leaflet/Leaflet/pull/4608)
+* Add `classname` option to `L.GridLayer` (by [@jayvarner](https://github.com/jayvarner)) [#4553](https://github.com/Leaflet/Leaflet/pull/4553)
+* Consistent returns for `Map.addLayer` (by [@nathancahill](https://github.com/nathancahill)) [#4504](https://github.com/Leaflet/Leaflet/pull/4504)
+* Create points from objects with `x` and `y` properties (by [@nathancahill](https://github.com/nathancahill)) [#4465](https://github.com/Leaflet/Leaflet/pull/4465)
+* Add `updateWhenZooming` option to `L.GridLayer` (by [@IvanSanchez](https://github.com/IvanSanchez)) [#4462](https://github.com/Leaflet/Leaflet/pull/4462)
+
+### Improvements
+* Refactoring of events (by [@fab1an](https://github.com/fab1an) and [@perliedman](https://github.com/perliedman)) [#4697](https://github.com/Leaflet/Leaflet/pull/4697)
+* Do not alter `popup.options.offset` when computing popup offset (fix #4645) (by [@yohanboniface](https://github.com/yohanboniface)) [#4662](https://github.com/Leaflet/Leaflet/pull/4662)
+* Use different `L.Bounds` for "marking as prunable" and loading tiles (by [@IvanSanchez](https://github.com/IvanSanchez)) [#4650](https://github.com/Leaflet/Leaflet/pull/4650)
+* Added `L.Tooltip` class to display small tooltips on the map (by [@yohanboniface](https://github.com/yohanboniface)) [#3952](https://github.com/Leaflet/Leaflet/pull/3952)
+
+### Bug fixes
+* Fixed `GridLayer`'s outer edge snapping to vertical center of map (fix #4702) (by [@yohanboniface](https://github.com/yohanboniface)) [#4704](https://github.com/Leaflet/Leaflet/pull/4704)
+* Fixed scrollwheel zoom too fast in MS Edge (by [@IvanSanchez](https://github.com/IvanSanchez)) [#4694](https://github.com/Leaflet/Leaflet/pull/4694)
+* Use `pointer-events: visiblePainted` as fallback for IE <11 (by [@perliedman](https://github.com/perliedman)) [#4690](https://github.com/Leaflet/Leaflet/pull/4690)
+* Avoid double borders on `abbr` in website (by [@brunob](https://github.com/brunob)) [#4663](https://github.com/Leaflet/Leaflet/pull/4663)
+* Prevent firing map click when layer has popup (by [@jwoyame](https://github.com/jwoyame)) [#4603](https://github.com/Leaflet/Leaflet/pull/4603)
+* Disable pointer events on popup tip (by [@jwoyame](https://github.com/jwoyame)) [#4599](https://github.com/Leaflet/Leaflet/pull/4599)
+* Prevent `L.DomUtil.create()` from automatically setting a CSS class name (by [@MuellerMatthew](https://github.com/MuellerMatthew)) [#4563](https://github.com/Leaflet/Leaflet/pull/4563)
+* Fix off-by-one bug in `Control.Layers._getLayer` (by [@ValentinH](https://github.com/ValentinH)) [#4561](https://github.com/Leaflet/Leaflet/pull/4561)
+* Fix scrollwheel events zomming two levelz in Chrome by scaling down `getWheelDelta()` (by [@IvanSanchez](https://github.com/IvanSanchez)) [#4538](https://github.com/Leaflet/Leaflet/pull/4538)
+* Prevent event listeners from being called when all listeners are removed (by [@perliedman](https://github.com/perliedman)) [#4555](https://github.com/Leaflet/Leaflet/pull/4555)
+* Don't prevent browser's touch scroll and/or zoom unless handlers are enabled (by [@perliedman](https://github.com/perliedman)) [#4552](https://github.com/Leaflet/Leaflet/pull/4552)
+* Fixed `getBoundsZoom` with small size and padding (by [@dianjin](https://github.com/dianjin)) [#4532](https://github.com/Leaflet/Leaflet/pull/4532)
+* Fixed `L.Control.Layers` in IE8 (by [@jieter](https://github.com/jieter)) [#4509](https://github.com/Leaflet/Leaflet/pull/4509)
+* Fixed `TileLayer`'s retina logic when `zoomReverse` is enabled. (by [@perliedman](https://github.com/perliedman)) [#4503](https://github.com/Leaflet/Leaflet/pull/4503)
+* Fixed `setMaxBounds` not resetting `maxBounds` when passing `null` argument (by [@yohanboniface](https://github.com/yohanboniface)) [#4494](https://github.com/Leaflet/Leaflet/pull/4494)
+* Fixed canvas not filtering click event after drag (by [@yohanboniface](https://github.com/yohanboniface)) [#4493](https://github.com/Leaflet/Leaflet/pull/4493)
+* Fixed `L.Control.removeLayer()` raising an error when trying to remove a layer not yet added (by [@jieter](https://github.com/jieter)) [#4487](https://github.com/Leaflet/Leaflet/pull/4487)
+* Fixed disabling drag on click in IE11 (by [@perliedman](https://github.com/perliedman)) [#4479](https://github.com/Leaflet/Leaflet/pull/4479)
+* Fixed `L.Evented.listens()` on removed event handlers, #4474 (by [@IvanSanchez](https://github.com/IvanSanchez)) [#4476](https://github.com/Leaflet/Leaflet/pull/4476)
+* Better handling of `markerZoomAnimation` event hooks (by [@IvanSanchez](https://github.com/IvanSanchez)) [#4460](https://github.com/Leaflet/Leaflet/pull/4460)
+
+
+## 1.0-rc1 (April 18, 2016)
+
+### API changes
+* Make `L.Control.Layers.collapse`/`expand` public methods (by [@yohanboniface](https://github.com/yohanboniface)) [#4370](https://github.com/Leaflet/Leaflet/pull/4370)
+* Make `L.latLngBounds` factory return an empty bounds with no argument (by [@yohanboniface](https://github.com/yohanboniface)) [#4368](https://github.com/Leaflet/Leaflet/pull/4368)
+* `Map.fitBounds` now raises an error if bounds are not valid (by [@theotow](https://github.com/theotow)) [#4353](https://github.com/Leaflet/Leaflet/pull/4353)
+* Temporarily support legacy options on `L.Circle` (by [@JrFolk](https://github.com/JrFolk)) [#4290](https://github.com/Leaflet/Leaflet/pull/4290)
+* Throw error on `NaN` circle radius (by [@IvanSanchez](https://github.com/IvanSanchez)) [#4237](https://github.com/Leaflet/Leaflet/pull/4237)
+* `L.Class.include()` & `mergeOptions()` now return `this` (by [@IvanSanchez](https://github.com/IvanSanchez)) [#4246](https://github.com/Leaflet/Leaflet/pull/4246)
+* Consistent GeoJSON casing (by [@yohanboniface](https://github.com/yohanboniface)) [#4108](https://github.com/Leaflet/Leaflet/pull/4108)
+* Move `L.LatLng.equals` to `L.CRS.equals`. (by [@perliedman](https://github.com/perliedman)) [#4074](https://github.com/Leaflet/Leaflet/pull/4074)
+* Make non-interactive markers not firing pointer events (by [@IvanSanchez](https://github.com/IvanSanchez)) [#3937](https://github.com/Leaflet/Leaflet/pull/3937)
+
+
+### Improvements
+* Give popups an id (by [@tylercubell](https://github.com/tylercubell)) [#4355](https://github.com/Leaflet/Leaflet/pull/4355)
+* Support `{-y}` in tile layer urls (by [@jieter](https://github.com/jieter)) [#4337](https://github.com/Leaflet/Leaflet/pull/4337)
+* Support `dashArray` path option in canvas (by [@gommo](https://github.com/gommo)) [#4173](https://github.com/Leaflet/Leaflet/pull/4173)
+* Clean up `navigator.pointerEnabled` (by [@IvanSanchez](https://github.com/IvanSanchez)) [#4287](https://github.com/Leaflet/Leaflet/pull/4287)
+* Use array in `L.Control.Layers` internally (by [@jieter](https://github.com/jieter)) [#4227](https://github.com/Leaflet/Leaflet/pull/4227)
+* Implement `L.Browser.edge` (by [@IvanSanchez](https://github.com/IvanSanchez)) [#4143](https://github.com/Leaflet/Leaflet/pull/4143)
+* Optimized icons (by [@vtduncan](https://github.com/vtduncan)) [#4124](https://github.com/Leaflet/Leaflet/pull/4124)
+* Cast `L.DivIcon.bgPos` option to `L.Point` (by [@perliedman](https://github.com/perliedman)) [#4090](https://github.com/Leaflet/Leaflet/pull/4090)
+* Switch to wheel event where available (by [@mourner](https://github.com/mourner)) [#3653](https://github.com/Leaflet/Leaflet/pull/3653)
+* Fractional zoom controls (by [@IvanSanchez](https://github.com/IvanSanchez) and [@hyperknot](https://github.com/hyperknot)) [#3523](https://github.com/Leaflet/Leaflet/pull/3523)
+* Added click tolerance also for non-touch devices (by [DavidUv](https://github.com/DavidUv)) [#4396](https://github.com/Leaflet/Leaflet/pull/4396)
+
+### Bug fixes
+* Fixed an edge case on `Map.fitBounds` (by [@perliedman](https://github.com/perliedman)) [#4377](https://github.com/Leaflet/Leaflet/pull/4377)
+* Fixed an edge case bug in `flyTo` (by [@hyperknot](https://github.com/hyperknot)) [#4376](https://github.com/Leaflet/Leaflet/pull/4376)
+* Use mean earth radius for distance calculation in `L.CRS.Earth`. (by [@perliedman](https://github.com/perliedman)) [#4369](https://github.com/Leaflet/Leaflet/pull/4369)
+* Fixed zoom event fired twice (by [@perliedman](https://github.com/perliedman)) [#4367](https://github.com/Leaflet/Leaflet/pull/4367)
+* Initialize canvas dash on init. Check that canvas supports `setLineDash`. (by [@perliedman](https://github.com/perliedman)) [#4364](https://github.com/Leaflet/Leaflet/pull/4364)
+* Do not calculate inverted y coords for CRSes with infinite: true (by [@jieter](https://github.com/jieter)) [#4344](https://github.com/Leaflet/Leaflet/pull/4344)
+* Fixed zoom handling on `Map.TouchZoom` (by [@IvanSanchez](https://github.com/IvanSanchez)) [#4340](https://github.com/Leaflet/Leaflet/pull/4340)
+* Fixed `this._times.length` undefined in `Map.Drag.js` (by [@LucasMouraDeOliveira](https://github.com/LucasMouraDeOliveira)) [#4324](https://github.com/Leaflet/Leaflet/pull/4324)
+* Fixed simulated click handling in `L.Path` (by [@elkami12](https://github.com/elkami12)) [#4314](https://github.com/Leaflet/Leaflet/pull/4314)
+* Fixed attribution text not removed when Layer is removed from map (by [@dr-itz](https://github.com/dr-itz)) [#4293](https://github.com/Leaflet/Leaflet/pull/4293)
+* Fixed bug when adding/removing a layer from `L.Control.Layer` that is not on the map (by [@errebenito](https://github.com/errebenito)) [#4280](https://github.com/Leaflet/Leaflet/pull/4280)
+* Fixed `Map.attributionControl` only set on `addInitHook` (by [@snkashis](https://github.com/snkashis)) [#4263](https://github.com/Leaflet/Leaflet/pull/4263)
+* Check for `e.originalEvent` in `DomUtil._filterclick` (by [@IvanSanchez](https://github.com/IvanSanchez)) [#4256](https://github.com/Leaflet/Leaflet/pull/4256)
+* Stop drag propagation on `L.Draggable` (by [@turban](https://github.com/turban)) [#4250](https://github.com/Leaflet/Leaflet/pull/4250)
+* Fixed error when quickly removing a layer just added (by [@hyperknot](https://github.com/hyperknot)) [#4244](https://github.com/Leaflet/Leaflet/pull/4244)
+* Fixed not resetting properly on `Map.stop` (by [@IvanSanchez](https://github.com/IvanSanchez)) [#4229](https://github.com/Leaflet/Leaflet/pull/4229)
+* Fixed conflict between `Map.fadeAnimation` and `GridLayer.opacity` (by [@IvanSanchez](https://github.com/IvanSanchez)) [#4228](https://github.com/Leaflet/Leaflet/pull/4228)
+* Fix fractional zoom calculation (by [@hyperknot](https://github.com/hyperknot)) [#4224](https://github.com/Leaflet/Leaflet/pull/4224)
+* Better cleanup of L.Control.Layers, fixes [#4213](https://github.com/Leaflet/Leaflet/pull/4213) (plus unit tests) (by [@IvanSanchez](https://github.com/IvanSanchez)) [#4214](https://github.com/Leaflet/Leaflet/pull/4214)
+* Fixed transform issue when not `L.Browser.any3d` (by [@IvanSanchez](https://github.com/IvanSanchez)) [#4212](https://github.com/Leaflet/Leaflet/pull/4212)
+* Fixed fractional zoom controls broken when initial zoom isn't specified (by [@IvanSanchez](https://github.com/IvanSanchez)) [#4209](https://github.com/Leaflet/Leaflet/pull/4209)
+* Fix extra tiles usage (by [@IvanSanchez](https://github.com/IvanSanchez)) [#4193](https://github.com/Leaflet/Leaflet/pull/4193)
+* Sanity check: test `pxBounds` validity before using it (by [@yohanboniface](https://github.com/yohanboniface)) [#4191](https://github.com/Leaflet/Leaflet/pull/4191)
+* Disable event defaults when disabling scroll propagation (by [@IvanSanchez](https://github.com/IvanSanchez)) [#4160](https://github.com/Leaflet/Leaflet/pull/4160)
+* Fixed precision issues in `L.Circle` radius (by [@IvanSanchez](https://github.com/IvanSanchez)) [#4133](https://github.com/Leaflet/Leaflet/pull/4133)
+* Workarounded some touch-capable browsers firing `dblclick` instead of touch events (by [@IvanSanchez](https://github.com/IvanSanchez)) [#4131](https://github.com/Leaflet/Leaflet/pull/4131)
+* Use all projected coords when calculating `L.Polyline`'s pixel bounds. (by [@perliedman](https://github.com/perliedman)) [#4114](https://github.com/Leaflet/Leaflet/pull/4114)
+* Fixed removing all events when passing an `undefined` property (by [@robertleeplummerjr](https://github.com/robertleeplummerjr)) [#4113](https://github.com/Leaflet/Leaflet/pull/4113)
+* Fixed retina URL computation (by [@hyperknot](https://github.com/hyperknot)) [#4110](https://github.com/Leaflet/Leaflet/pull/4110)
+* Fire `tileunload` for all unloading of tiles (by [@tcoats](https://github.com/tcoats)) [#4099](https://github.com/Leaflet/Leaflet/pull/4099)
+* Fixed duplicated code in `L.GridLayer.retainParent()` (by [@jblarsen](https://github.com/jblarsen)) [#4094](https://github.com/Leaflet/Leaflet/pull/4094)
+* Make sure to always reset `_enforcingBounds`. (by [@perliedman](https://github.com/perliedman)) [#4089](https://github.com/Leaflet/Leaflet/pull/4089)
+* Fix bug with max bounds and custom projections (by [@OleLaursen](https://github.com/OleLaursen)) [#4078](https://github.com/Leaflet/Leaflet/pull/4078)
+* When limiting center to bounds, ignore offsets less than a pixel. (by [@perliedman](https://github.com/perliedman)) [#4077](https://github.com/Leaflet/Leaflet/pull/4077)
+* Fixed bug for hover event between circle overlapping polygon on canvas (by [@fimietta](https://github.com/fimietta)) [#4072](https://github.com/Leaflet/Leaflet/pull/4072)
+* Fixed but where `L.Control.Layers` where calling `map._size` instead of `getSize()` (by [@Brobin](https://github.com/Brobin)) [#4063](https://github.com/Leaflet/Leaflet/pull/4063)
+* Round new map position before animating pan (by [@RLRR](https://github.com/RLRR)) [#4046](https://github.com/Leaflet/Leaflet/pull/4046)
+* Fixed overlayed circles not responding to mouse events in canvas (by [@Deftwun](https://github.com/Deftwun)) [#4033](https://github.com/Leaflet/Leaflet/pull/4033)
+* Fixed GeoJSON `resetStyle` (by [@yohanboniface](https://github.com/yohanboniface)) [#4028](https://github.com/Leaflet/Leaflet/pull/4028)
+* Fixed popup toggle on marker click (by [@yohanboniface](https://github.com/yohanboniface)) [#4016](https://github.com/Leaflet/Leaflet/pull/4016)
+* Fixed event target fallbacking to map after marker drag (fix [#3971](https://github.com/Leaflet/Leaflet/pull/3971)) (by [@yohanboniface](https://github.com/yohanboniface)) [#4010](https://github.com/Leaflet/Leaflet/pull/4010)
+* Fixed `maxZoom` not honoring 0 (by [@simsibimsiwimsi](https://github.com/simsibimsiwimsi)) [#4000](https://github.com/Leaflet/Leaflet/pull/4000)
+* Skip `L.GridLayer._updateLevels()` when out of min/max zoom (prevents IE8 exceptions) (by [@IvanSanchez](https://github.com/IvanSanchez)) [#3999](https://github.com/Leaflet/Leaflet/pull/3999)
+* `L.DomUtil.getPosition()` should return a fallback value (for VML in IE8) (by [@IvanSanchez](https://github.com/IvanSanchez)) [#3998](https://github.com/Leaflet/Leaflet/pull/3998)
+* `L.Marker`: init interaction regardless of new icon or not (by [@celadevra](https://github.com/celadevra)) [#3978](https://github.com/Leaflet/Leaflet/pull/3978)
+* Fix `interactive=false` not taken into account for canvas (by [@yohanboniface](https://github.com/yohanboniface)) [#3956](https://github.com/Leaflet/Leaflet/pull/3956)
+* Fix canvas path disappearing on animation (by [@klaftertief](https://github.com/klaftertief)) [#3950](https://github.com/Leaflet/Leaflet/pull/3950)
+* Only check for moving draggable in canvas renderer when map is draggable (by [@klaftertief](https://github.com/klaftertief)) [#3942](https://github.com/Leaflet/Leaflet/pull/3942)
+* Fix SVG Dragging issues in IE and Edge (by [@perliedman](https://github.com/perliedman)) [#4382](https://github.com/Leaflet/Leaflet/pull/4382)
+* Fix click not working on inputs in controls in IE 11 (by [@perliedman](https://github.com/perliedman)) [#4371](https://github.com/Leaflet/Leaflet/pull/4371)
+* Make drag and touch zoom handlers insensitive to order of event handlers (by [@perliedman](https://github.com/perliedman)) [#4387](https://github.com/Leaflet/Leaflet/pull/4387)
+
+### Other
+* Added a Code of Conduct (by [@mourner](https://github.com/mourner)) [#4142](https://github.com/Leaflet/Leaflet/pull/4142)
+* Dual 1.0 & 0.7 docs to gh-pages (by [@IvanSanchez](https://github.com/IvanSanchez)) [#4085](https://github.com/Leaflet/Leaflet/pull/4085)
+* 🍂doc (by [@IvanSanchez](https://github.com/IvanSanchez)) [#3916](https://github.com/Leaflet/Leaflet/pull/3916)
+* A lot of documentation improvements (by [@nathancahill](https://github.com/nathancahill)) [#4418](https://github.com/Leaflet/Leaflet/pull/4418), [#4419](https://github.com/Leaflet/Leaflet/pull/4419), [#4423](https://github.com/Leaflet/Leaflet/pull/4423), [#4425](https://github.com/Leaflet/Leaflet/pull/4425) and [a lot more](https://github.com/Leaflet/Leaflet/pulls?q=is%3Apr+author%3Anathancahill+is%3Aclosed)
+* Replace links to google groups with ones to GIS StackExchange (by [@IvanSanchez](https://github.com/IvanSanchez)) [#3886](https://github.com/Leaflet/Leaflet/pull/3886)
+
+
 ## 1.0-beta2 (October 14, 2015)
 
 Beta 2 fixes over 50 bugs that were reported by users trying out beta 1. The vast majority of changes are small fixes to problems that are triggered in very specific situations or conditions, a few API consolidation changes, and a few browser workarounds.
@@ -310,6 +455,17 @@ Animation code in Leaflet had undergone a major rewrite (main PR: [#2382](https:
 * Switched from JSHint to ESLint for checking code style and made the checks more strict. [#3176](https://github.com/Leaflet/Leaflet/pull/3176)
 * Added a plugin guide section on module loaders and publishing plugins (by [@patrickarlt](https://github.com/patrickarlt)). [#2955](https://github.com/Leaflet/Leaflet/pull/2955) [Leaflet/Leaflet#2955](https://github.com/Leaflet/Leaflet/pull/2955)
 * Fixed the build system to work in non-git Leaflet folder (by [@cschwarz](https://github.com/cschwarz)). [#2758](https://github.com/Leaflet/Leaflet/pull/2758)
+
+
+## 0.7.7 (October 26, 2015)
+
+* Fixed a regression that could sometimes cause tiles to disappear when pinch-zooming on iOS devices.
+* Fixed a regression related to msPointer detection in IE10 (affecting Leaflet.draw and some other plugins) (by @danzel) #3842 #3839 #3804
+* Fixed a bug where a mouseout could fire after a vector element was removed (by @sambernet). #3849 #3829
+* Fixed touch interactions in Edge browser (by @mitchless & @Neorth). #3853 #3379
+* Fixed a bug where removing a layer group from a feature group would throw an error (by @Lambdac0re). #3869
+
+Note tha we skipped 0.7.6 version for which we accidentally published a broken build to NPM.
 
 
 ## 0.7.5 (September 2, 2015)
